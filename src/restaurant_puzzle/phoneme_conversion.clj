@@ -1,4 +1,4 @@
-(ns restuarant-puzzle.phoneme-conversion
+(ns restaurant-puzzle.phoneme-conversion
   (:require [restaurant-puzzle.phoneme-dictionary :as pd]))
 
 ;; For now I'll use the phoneme-list first search.
