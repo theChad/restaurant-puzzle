@@ -60,20 +60,21 @@
 (defn get-words-from-phonemes
   "Return collection of possible word sequences using all phonemes in sequence."
   [reverse-phoneme-dictionary phonemes]
-  (update-word-chains reverse-phoneme-dictionary [[[] phonemes]])
+  (map first (update-word-chains reverse-phoneme-dictionary [[[] phonemes]]))
   )
 
 
 (defn string-from-word-chains
   "Return a string of just the possible word chains."
   [word-chains]
-  (clojure.string/replace (reduce #(str %1 "\n" (clojure.string/join " " (first %2))) ""  word-chains)
+  (clojure.string/replace (reduce #(str %1 "\n" (clojure.string/join " " %2)) ""  word-chains)
                           #"\"" ""))
 
 
 ;;(new-word-chain (pd/get-reverse-phoneme-dictionary) ["test" "is"] [["IH" "N"] ["EH" "S" "T"]])
 ;;(new-word-chains (pd/get-reverse-phoneme-dictionary) ["test" "is"] ["T" "EH" "S" "T" "IH" "NG"])
 
-(print (string-from-word-chains (get-words-from-phonemes (pd/get-reverse-phoneme-dictionary) ["T" "EH" "S" "T" "IH" "NG"])))
+;;(print (string-from-word-chains (get-words-from-phonemes (pd/get-reverse-phoneme-dictionary) ["T" "EH" "S" "T" "IH" "NG"])))
+
 ;;(old-update-word-chains (pd/get-reverse-phoneme-dictionary) [[["test" "is"] ["EH" "S" "T" "IH" "NG"]]])
 

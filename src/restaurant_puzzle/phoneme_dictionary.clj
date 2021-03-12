@@ -48,7 +48,6 @@
 (defn get-phonemes-from-word
   "Return a sequence of the phonemes of a given word."
   [phoneme-dictionary word]
-  (print word)
   (phoneme-dictionary (.toUpperCase word)))
 
 (defn get-word-from-phonemes
