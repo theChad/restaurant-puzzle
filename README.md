@@ -4,7 +4,18 @@ This project is meant to solve a little word scramble puzzle. The puzzle gives a
 
 ## Usage
 
-Currently just looks for one line of clue words in `resources/clue_words.txt`, the phoneme dictionary in `resources/cmudict-0.7b`, and spits out the answers into `resources/answers.txt`. 
+Only looks at one line of clue words. Reads in a phoneme dictionary and the first line of the clue file, and write the answers to a file. Prunes down to answers with at least `b` of the base words (or their homophones) missing. 
+
+Run with `lein run -- `, followed by options.
+
+  | Option | Long Option | Default | Description |
+  | ------| ------| ------| ------|
+  |-d | --dictionary DICTIONARY FILE | resources/bland-vowel-dict | Dictionary file location  
+  |-c | --clues CLUE FILE            | resources/clue_words.txt   | Clue file location  
+  |-a | --answers ANSWER FILE        | resources/answers.txt     |  File to write answers to (overwrite)  
+  |-b | --base-words BASE WORDS      | 1                        |   Allow all but b base words in answers  
+  |-h | --help                        | nil                       |   Display usage information.  
+
 
 ## License
 
