@@ -67,7 +67,7 @@
 (defn string-from-word-chains
   "Return a string of just the possible word chains."
   [word-chains]
-  (clojure.string/replace (reduce #(str %1 "\n" (clojure.string/join " " %2)) ""  word-chains)
+  (clojure.string/replace (reduce #(str %1 (clojure.string/join " " %2) "\n") "" word-chains)
                           #"\"" ""))
 
 
