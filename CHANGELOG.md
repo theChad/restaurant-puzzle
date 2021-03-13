@@ -2,8 +2,9 @@
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
 ## [Unreleased]
-### Changed
-Nothing yet.
+### Added
+- Bland vowel dictionary creation (treat all vowels as the same letter)
+- Command line interface options
 
 ## [0.1.0] - 2021-03-13
 ### Added
