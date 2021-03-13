@@ -23,7 +23,7 @@
          (map (partial pc/get-words-from-phonemes reverse-phoneme-dictionary))
          (reduce into)
          ;; Remove entries with that still use almost all of the base words
-         (remove (partial utils/uses-most-base-words? 3 (utils/read-clue-words)))
+         (remove (partial utils/uses-most-base-words? 5 (utils/read-clue-words)))
          (pc/string-from-word-chains)
          (spit "resources/answers.txt")
          )))

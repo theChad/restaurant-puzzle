@@ -1,36 +1,14 @@
 # restaurant-puzzle
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+This project is meant to solve a little word scramble puzzle. The puzzle gives a list of words, which should be reordered such that they sound like some other coherent collection of words. For example, "TAB ESS MEANT LISH" might be rearranged to sound like "ESTABLISHMENT." Due to the strict adherence to the phoneme dictionary, however..the program won't currently make that link.
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar restaurant-puzzle-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+Currently just looks for one line of clue words in `resources/clue_words.txt`, the phoneme dictionary in `resources/cmudict-0.7b`, and spits out the answers into `resources/answers.txt`. 
 
 ## License
 
-Copyright © 2021 FIXME
+Copyright © 2021 theChad
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
