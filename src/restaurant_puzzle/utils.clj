@@ -114,7 +114,6 @@
   "Recursive cartesian product of vectors in the factors sequence."
   (memoize
    (fn [factors]
-     (println "ran it")
      (cond (empty? factors) ['()]
            ;; Scalar value? Just append it and move onto the rest of the factors
            ;;(not (coll? (first factors))) (cartesian-product (rest factors) (conj working-product (first factors)))
@@ -127,4 +126,5 @@
                    (conj cart-prod first-element))))))
 
 
-(cartesian-product-mem [[1 2 10] [4 5 7] [7 8 9]])
+;;(cartesian-product-mem [[1 2 10] [4 5 7] [7 8 9]])
+

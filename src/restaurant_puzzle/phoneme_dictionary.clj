@@ -45,6 +45,26 @@
   ([]
    (get-reverse-phoneme-dictionary "resources/cmudict-0.7b")))
 
+(defn replace-vowels-in-phonemes
+  "Replace the vowels in phonemes only, given a row of the dict file."
+  [row]
+  (into [(first row)]
+        (map #(clojure.string/replace % #"[AEIOU]+[WYH]*" "A") (rest row))))
+
+(defn dictionary-rows-to-string
+  "From a vector of vectors representing the dictionary rows,
+   return a string"
+  [rows]
+  (reduce #(str %1 (clojure.string/join " " %2) "\n") "" rows))
+
+(defn make-bland-vowel-dictionary-file
+  "Create a new dictionary file with aeiou all assinged to the same letter."
+  [dictionary-file out-file]
+  (let [d (parse (slurp dictionary-file))]
+    (spit out-file
+          (dictionary-rows-to-string
+           (map replace-vowels-in-phonemes d)))))
+
 (defn get-phonemes-from-word
   "Return a sequence of the phonemes of a given word."
   [phoneme-dictionary word]
@@ -57,8 +77,8 @@
 
 
 
-(get-phonemes-from-word (get-phoneme-dictionary) "read")
-(get-word-from-phonemes (get-reverse-phoneme-dictionary) ["IH" "N"])
 
-;;(println (take 5 (get-reverse-phoneme-dictionary)))
+;;(print (dictionary-rows-to-string (map replace-vowels-in-phonemes (take 5 (parse (slurp "resources/cmudict-0.7b"))))))
+;;(make-bland-vowel-dictionary-file "resources/cmudict-0.7b" "resources/bland-vowel-dict")
+
 
