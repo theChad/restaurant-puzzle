@@ -8,9 +8,18 @@
             [clojure.pprint]
             ))
 
+(defn quiet-answers
+  "Trim the answer list down if quiet flag set."
+  [quiet answer-list]
+  (if quiet
+    (->> answer-list
+         utils/homophone-trim-all-word-chains
+         utils/trim-permuted-word-chains)
+    answer-list))
+
 (defn write-possible-answers
   "Output the possible answers"
-  [phoneme-dictionary reverse-phoneme-dictionary clue-word-file answer-file base-words]
+  [phoneme-dictionary reverse-phoneme-dictionary clue-word-file answer-file base-words quiet]
    ;; Only looks at first line of clue-word-file
   (->> (utils/read-clue-words clue-word-file) ; clue word-lists
        (utils/words-to-phonemes phoneme-dictionary) ; clue phoneme lists
@@ -24,6 +33,7 @@
        (reduce into)
        ;; Remove entries with that still use almost all of the base words
        (remove (partial utils/uses-most-base-words? base-words (utils/read-clue-words)))
+       (quiet-answers quiet)
        (pc/string-from-word-chains)
        (spit answer-file)
        ))
@@ -39,6 +49,8 @@
    ["-b" "--base-words BASE WORDS" "Allow all but b base words in answers"
     :parse-fn #(Integer/parseInt %)
     :default 1]
+   ["-q" "--quiet" "Trimmed down output"
+    :default nil]
    ["-h" "--help" "Display usage information."
     :default nil]])
 
@@ -58,9 +70,10 @@
     (clojure.pprint/pprint options)
     (if exit-message
       (println exit-message)
-      (let [{:keys [dictionary clues answers base-words]} options
+      (let [{:keys [dictionary clues answers base-words quiet]} options
             phoneme-dictionary (pd/get-phoneme-dictionary dictionary)
             reverse-phoneme-dictionary (pd/get-reverse-phoneme-dictionary dictionary)]
-        (write-possible-answers phoneme-dictionary reverse-phoneme-dictionary clues answers base-words)))
+        (write-possible-answers phoneme-dictionary reverse-phoneme-dictionary clues answers base-words quiet)
+        ))
 
     ))

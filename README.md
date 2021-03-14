@@ -1,6 +1,6 @@
 # restaurant-puzzle
 
-This project is meant to solve a little word scramble puzzle. The puzzle gives a list of words, which should be reordered such that they sound like some other coherent collection of words. For example, "TAB ESS MEANT LISH" might be rearranged to sound like "ESTABLISHMENT." Due to the strict adherence to the phoneme dictionary, however..the program won't currently make that link.
+This project is meant to solve a little word scramble puzzle. The puzzle gives a list of words, which should be reordered such that they sound like some other coherent collection of words. For example, "TAB ESS MEANT LISH" might be rearranged to sound like "ESTABLISHMENT." Due to the strict adherence to the phoneme dictionary, however, this particular example won't work with a default dictionary. Using a "bland vowel" dictionary that treats all vowels as the same allows the program to find things like ESTABLISHMENT in this example. The dictionary can be created from the standard dictionary with `utils/make-bland-dictionary-file`.
 
 ## Usage
 
@@ -13,7 +13,8 @@ Run with `lein run -- `, followed by options.
   |-d | --dictionary DICTIONARY FILE | resources/bland-vowel-dict | Dictionary file location  
   |-c | --clues CLUE FILE            | resources/clue_words.txt   | Clue file location  
   |-a | --answers ANSWER FILE        | resources/answers.txt     |  File to write answers to (overwrite)  
-  |-b | --base-words BASE WORDS      | 1                        |   Allow all but b base words in answers  
+  |-b | --base-words BASE WORDS      | 1                        |   Allow all but b base words in answers
+  | -q| --quiet                       | nil                       |    Trimmed down output
   |-h | --help                        | nil                       |   Display usage information.  
 
 

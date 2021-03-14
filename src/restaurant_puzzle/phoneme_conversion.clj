@@ -71,10 +71,3 @@
                           #"\"" ""))
 
 
-;;(new-word-chain (pd/get-reverse-phoneme-dictionary) ["test" "is"] [["IH" "N"] ["EH" "S" "T"]])
-;;(new-word-chains (pd/get-reverse-phoneme-dictionary) ["test" "is"] ["T" "EH" "S" "T" "IH" "NG"])
-
-;;(print (string-from-word-chains (get-words-from-phonemes (pd/get-reverse-phoneme-dictionary) ["T" "EH" "S" "T" "IH" "NG"])))
-
-;;(old-update-word-chains (pd/get-reverse-phoneme-dictionary) [[["test" "is"] ["EH" "S" "T" "IH" "NG"]]])
-

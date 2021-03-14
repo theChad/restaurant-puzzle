@@ -28,6 +28,10 @@
    (fn [w] (map (partial pd/get-phonemes-from-word phoneme-dictionary) w))
    words))
 
+;;; Paring down the output
+
+;;; The solution probably isn't just a permutation of original words
+
 (defn uses-all-base-words?
   "True if a word chain contains all the base words.
    word-chain: [[homonymns] [homonymns2] ..]
@@ -48,49 +52,31 @@
   (> n (count (clojure.set/difference (set (flatten base-words)) (set (flatten word-chain)))))
   )
 
+;;; Only choose one word per homophone group
+;;; This is a little tougher to interpret with something like the bland vowel dictionary
+
+(defn choose-single-homophone
+  "Return a word chain of containing just one word per homophone group."
+  [word-chain]
+  (map first word-chain))
+
+(defn homophone-trim-all-word-chains
+  "Pare down to one homophone in every word-chain in the list"
+  [word-chains]
+  (map choose-single-homophone word-chains))
+
+;;; Trim permutations
+
+(defn trim-permuted-word-chains
+  "Only keep one permutation of each word-chain"
+  [word-chains]
+  (set (map set word-chains)))
 
 
-(read-clue-words "resources/clue_words.txt")
-(def a (words-to-phonemes (pd/get-phoneme-dictionary)
-                          (read-clue-words "resources/clue_words.txt")))
 
 
-(remove (partial uses-most-base-words? 1 [[["this" "is" "a" "test"]]])                      
-        [[["this" "and"] ["a"] ["is"] "tes"]])
-(uses-most-base-words? 0 [[["this" "is" "a" "test"]]]                      
-                       [[["this" "and"] ["a"] ["is"] "test"]])
-
-
-
-;;; This is just clojure.math.combinatorics/cartesian-product.
-;;; I'd still like to come back to a recurseive version sometime.
-
-;;; pronunciation-combos doesn't work.
-
-(defn pronunciation-combos
-  "Return all combinations of pronunciations of words from a collection
-   of possible pronunciations.
-  E.g. [[pron-a1 pron-a2] [pron-b1 pron-b2]] should return
-  [[pron-a1 pronb1] [pron-a1 pron-b2] [pron-a2 pron b-1] [pron-a2 pron b-2]]"
-  ([p-poss p-combos partial-combo]
-   (println "p-combos " p-combos "partial:  " partial-combo)
-   (cond (empty? p-poss) (conj p-combos partial-combo)
-         (not (coll? (first p-poss)))
-         ;; First element of p-poss is scalar, just add to p-combos
-         (recur (rest p-poss)
-                p-combos
-                (conj partial-combo (first p-poss)))
-         ;; Cycled through all first element pronunciations, move on.
-         (empty? (first p-poss)) (recur (rest p-poss) p-combos partial-combo)
-         ;; Append one of the first element possibilities to the end of the last combo.
-         :else (do  (println "p-poss: " p-poss)
-                    (println "passing " [(drop 1 (first p-poss)) (rest p-poss)])
-                 (println "adding "(first (take 1 (first p-poss))))
-                 (recur (conj (rest p-poss) (drop 1 (first p-poss)))
-                          p-combos
-                          (conj partial-combo (first (take 1 (first p-poss))))))))
-  ([p-poss]
-   (pronunciation-combos p-poss [] [])))
+;;; Just a couple cartesian product functions for fun. I use clojure.combinatorics/cartesian-product
+;;; when I actually need it.
 
 ;;; Working, non-memoized cartesian product. No tail recursion.
 ;;; Does use an accumulator though.
@@ -126,5 +112,5 @@
                    (conj cart-prod first-element))))))
 
 
-;;(cartesian-product-mem [[1 2 10] [4 5 7] [7 8 9]])
+(cartesian-product-mem [[1 2 10] [4 5 7] [7 8 9]])
 
