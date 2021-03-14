@@ -2,6 +2,8 @@
 
 This project is meant to solve a little word scramble puzzle. The puzzle gives a list of words, which should be reordered such that they sound like some other coherent collection of words. For example, "TAB ESS MEANT LISH" might be rearranged to sound like "ESTABLISHMENT." Due to the strict adherence to the phoneme dictionary, however, this particular example won't work with a default dictionary. Using a "bland vowel" dictionary that treats all vowels as the same allows the program to find things like ESTABLISHMENT in this example. The dictionary can be created from the standard dictionary with `utils/make-bland-dictionary-file`.
 
+A phoneme dictionary can be downloaded from the [CMU speech department](http://www.speech.cs.cmu.edu/cgi-bin/cmudict). 
+
 ## Usage
 
 Only looks at one line of clue words. Reads in a phoneme dictionary and the first line of the clue file, and write the answers to a file. Prunes down to answers with at least `b` of the base words (or their homophones) missing. 
